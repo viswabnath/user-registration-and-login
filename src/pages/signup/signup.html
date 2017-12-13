@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Signup Page</ion-title>
+  </ion-navbar>
+</ion-header>
+  
+  
+<ion-content padding>
+    <form [formGroup]="authorForm" (ngSubmit)="onSubmit(authorForm.value)">
+      
+        <ion-item [ngClass]="{'error-border':!authorForm.controls.id.valid && authorForm.controls.id.touched}">
+            <ion-label floating>ID</ion-label>
+            <ion-input formControlName="id" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.id.hasError('required') && authorForm.controls.id.touched">
+            <p>Sorry, field id is required!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.id.hasError('pattern') && authorForm.controls.id.touched">
+            <p>Sorry, only letters and numbersare allowed!</p>
+        </ion-item>        
+        <ion-item *ngIf="authorForm.controls.id.hasError('minlength') && authorForm.controls.id.touched">
+            <p>Sorry, minimum id length is 4!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.id.hasError('maxlength') && authorForm.controls.id.touched">
+            <p>Sorry, maximum id length is 20!</p>
+        </ion-item>
+
+        <ion-item [ngClass]="{'error-border':!authorForm.controls.firstname.valid && authorForm.controls.firstname.touched}">
+            <ion-label floating>Firstname</ion-label>
+            <ion-input formControlName="firstname" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.firstname.hasError('required') && authorForm.controls.firstname.touched">
+            <p>Sorry, field firstname is required!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.firstname.hasError('pattern') && authorForm.controls.firstname.touched">
+            <p>Sorry, only Lower and Uppercase letters are allowed!</p>
+        </ion-item>        
+        <ion-item *ngIf="authorForm.controls.firstname.hasError('minlength') && authorForm.controls.firstname.touched">
+            <p>Sorry, minimum firstname length is 8!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.firstname.hasError('maxlength') && authorForm.controls.firstname.touched">
+            <p>Sorry, maximum firstname length is 30!</p>
+        </ion-item>
+
+        <ion-item [ngClass]="{'error-border':!authorForm.controls.lastname.valid && authorForm.controls.lastname.touched}">
+            <ion-label floating>Lastname</ion-label>
+            <ion-input formControlName="lastname" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.lastname.hasError('required') && authorForm.controls.lastname.touched">
+            <p>Sorry, field lastname is required!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.lastname.hasError('pattern') && authorForm.controls.lastname.touched">
+            <p>Sorry, only small and capital letters are allowed!</p>
+        </ion-item>        
+        <ion-item *ngIf="authorForm.controls.lastname.hasError('minlength') && authorForm.controls.lastname.touched">
+            <p>Sorry, minimum lastname length is 8!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.lastname.hasError('maxlength') && authorForm.controls.lastname.touched">
+            <p>Sorry, maximum lastname length is 30!</p>
+        </ion-item>
+  
+        <!--<ion-item [ngClass]="{'error-border':!authorForm.controls.password.valid && authorForm.controls.password.touched}">
+            <ion-label floating>New Password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.password.hasError('required') && authorForm.controls.password.touched">
+            <p>Sorry, field password is required!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.password.hasError('minlength') && authorForm.controls.password.touched">
+            <p>Sorry, minimum password length is 8!</p>
+        </ion-item>
+        
+        <ion-item [ngClass]="{'error-border':!authorForm.controls.npassword.valid && authorForm.controls.npassword.touched}">
+            <ion-label floating> Confirm password</ion-label>
+            <ion-input formControlName="npassword" type="password"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.npassword.hasError('required') && authorForm.controls.npassword.touched">
+            <p>Sorry, field password is required!</p>
+        </ion-item>
+        <ion-item *ngIf="authorForm.controls.npassword.hasError('minlength') && authorForm.controls.npassword.touched">
+            <p>Sorry, minimum password length is 8!</p>
+        </ion-item> -->
+        <ion-item >
+            <ion-label floating >Password</ion-label>
+            <ion-input type="password" value="" formControlName="password"></ion-input>
+            
+            </ion-item>
+            
+            <ion-item no-lines *ngIf="( authorForm.controls.password.hasError('minlength') ) && authorForm.controls.password.touched">
+                <p>Sorry, minimum password length is 8!</p>
+            <div class="error" *ngIf="authorForm.controls.password.hasError('required') && authorForm.controls.password.touched">
+            Password is required
+            </div>
+          
+        </ion-item>
+            
+            
+        <ion-item>
+            <ion-label floating >Confirm Password</ion-label>
+            <ion-input type="password" value="" formControlName="re_password"></ion-input>
+            
+            </ion-item>
+            
+            <ion-item no-lines *ngIf="( authorForm.get('re_password').hasError('equalTo') || authorForm.get('re_password').hasError('required') ) && authorForm.get('re_password').touched">
+            
+            <div class="error" *ngIf="authorForm.get('re_password').hasError('required') && authorForm.get('re_password').touched">
+           <p> Confirm password is required </p> 
+            </div>
+            <div class="error" *ngIf="authorForm.get('re_password').hasError('equalTo') && authorForm.get('re_password').touched">
+            <p> Password Mismatch </p>
+            </div>
+        </ion-item>
+            
+  
+        <button ion-button full color="primary" [disabled]="!authorForm.valid" style="margin-top: 20px;" type="submit">Signup</button> 
+        <button ion-button full color="primary" style="margin-top: 20px;" type="submit" (click)="log()">Login</button>       
+    </form>
+</ion-content>
+<style type="text/css">
+    .error
+    {
+    color:red;
+    }
+    
+    </style>
